@@ -1,17 +1,30 @@
 from functools import wraps
+from typing import Dict
+
 import aiohttp
 
 import logging
 logger = logging.getLogger(__name__)
 
 
-async def get_ticket(account, password):
+async def get_ticket(
+        account: str,
+        password: str,
+        no_characters: bool = False,
+        no_friends: bool = False,
+        no_bookmarks: bool = False,
+        new_character_list: bool = False
+) -> Dict:
     """You'll receive a ticket and a ton of other things that you probably won't need unless you're
     making an f-chat client. Tickets are valid for 24 hours from issue, and invalidate all previous
     tickets for the account when issued."""
     data = {
         'account': account,
         'password': password,
+        'no_characters': str(no_characters).lower(),
+        'no_friends': str(no_friends).lower(),
+        'no_bookmarks': str(no_bookmarks).lower(),
+        'new_character_list': str(new_character_list).lower(),
     }
     logger.info("F-List API call: getApiTicket{arguments}".format(arguments=data))
     async with aiohttp.ClientSession() as session:
