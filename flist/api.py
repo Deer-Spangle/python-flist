@@ -79,10 +79,8 @@ def character_customkinks(account, ticket, name):
 
 
 @flist_api_decorator
-def character_get(name):
-    """Get basic characer info. Does not require the account and ticket form fields.
-    Requires one parameter, "name"."""
-    pass
+def character_data(account, ticket, name):
+    """Gets all character information"""
 
 
 @flist_api_decorator
